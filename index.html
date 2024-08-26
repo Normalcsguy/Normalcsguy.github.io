@@ -77,6 +77,52 @@
             text-align: center;
             margin-top: 40px; /* Adjusted margin for spacing */
         }
+        .buttons {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .buttons button {
+            background-color: #d2691e;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .buttons button:hover {
+            background-color: #a0522d;
+        }
+        .comment-section {
+            margin-top: 20px;
+            border-top: 2px solid #d2691e;
+            padding-top: 20px;
+        }
+        .comment-section h3 {
+            color: #d2691e;
+        }
+        .comment-section textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+        .comment-section button {
+            background-color: #d2691e;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .comment-section button:hover {
+            background-color: #a0522d;
+        }
     </style>
 </head>
 <body>
@@ -114,6 +160,17 @@
             <li>Fry until golden and crispy. Remove from the oil and immediately dip into the warm sugar syrup for a few seconds.</li>
             <li>Remove from syrup and let drain on paper towels. Serve warm or at room temperature.</li>
         </ol>
+    </div>
+
+    <div class="buttons">
+        <button onclick="alert('Thank you for liking!')">Like</button>
+        <button onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href), '_blank')">Share</button>
+    </div>
+
+    <div class="comment-section">
+        <h3>Leave a Comment:</h3>
+        <textarea placeholder="Your comment here..."></textarea>
+        <button onclick="alert('Comment submitted!')">Submit</button>
     </div>
 
     <div class="footer">
