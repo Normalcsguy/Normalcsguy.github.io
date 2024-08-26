@@ -5,124 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shriya's Kitchen - Jalebi Recipe</title>
     <style>
-        body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background-color: #e0f7fa; /* Light blue background color */
-            background-image: url('https://wallpapers.com/images/hd/cute-spring-yellow-flowers-art-vihf9ewokkgk2igy.jpg');
-            background-size: cover; /* Cover the entire background */
-            background-position: center; /* Center the background image */
-            color: #333;
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-            line-height: 1.6;
-            position: relative; /* To position small images */
-        }
-        h1 {
-            color: #d2691e;
-            font-family: 'Brush Script MT', cursive;
-            font-size: 2.5em; /* Larger font size for the main heading */
-            position: relative;
-        }
-        .small-jalebi {
-            position: absolute;
-            width: 100px;
-            height: auto;
-            top: 20px; /* Adjust as needed */
-            right: 20px; /* Adjust as needed */
-            opacity: 0.8; /* Slightly less transparent */
-        }
-        h2 {
-            color: #d2691e; /* Same color as h1 */
-            font-family: 'Brush Script MT', cursive; /* Same font as h1 */
-            font-size: 2em; /* Same font size as h1 */
-            position: relative;
-        }
-        p.intro {
-            color: #4b0082; /* Dark purple color for the introduction text */
-            font-size: 1.2em;
-            font-weight: bold; /* Bold text */
-            border-left: 4px solid #d2691e;
-            padding-left: 10px;
-            margin-bottom: 20px;
-        }
-        ul {
-            margin-bottom: 20px;
-        }
-        .recipe {
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 5px;
-            border: 2px solid #fff; /* White border for the recipe box */
-            border-image: url('https://example.com/bows.png') 30 round; /* White bows on border */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            display: flex; /* Flexbox for positioning images */
-            flex-direction: column; /* Stack images and text vertically */
-            align-items: center; /* Center-align the content */
-        }
-        .recipe img {
-            max-width: 50%; /* Main image size */
-            height: auto;
-            border-radius: 5px;
-        }
-        .recipe .small-cooking {
-            max-width: 50%; /* Match size with the main image */
-            height: auto;
-            margin: 10px 0; /* Space above and below the additional image */
-        }
-        .footer {
-            font-size: 0.9em;
-            color: #4b0082; /* Dark purple color for the last sentence */
-            text-align: center;
-            margin-top: 40px; /* Adjusted margin for spacing */
-        }
-        .buttons {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .buttons button {
-            background-color: #d2691e;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        .buttons button:hover {
-            background-color: #a0522d;
-        }
-        .comment-section {
-            margin-top: 20px;
-            border-top: 2px solid #d2691e;
-            padding-top: 20px;
-        }
-        .comment-section h3 {
-            color: #d2691e;
-        }
-        .comment-section textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 1em;
-            margin-bottom: 10px;
-        }
-        .comment-section button {
-            background-color: #d2691e;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        .comment-section button:hover {
-            background-color: #a0522d;
-        }
+        /* Your existing CSS styles here */
     </style>
 </head>
 <body>
@@ -163,18 +46,49 @@
     </div>
 
     <div class="buttons">
-        <button onclick="alert('Thank you for liking!')">Like</button>
+        <button id="like-button">Like</button>
         <button onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href), '_blank')">Share</button>
     </div>
 
     <div class="comment-section">
         <h3>Leave a Comment:</h3>
-        <textarea placeholder="Your comment here..."></textarea>
-        <button onclick="alert('Comment submitted!')">Submit</button>
+        <textarea id="comment-text" placeholder="Your comment here..."></textarea>
+        <button id="submit-comment">Submit</button>
     </div>
 
     <div class="footer">
         Thanks for visiting Shriya's Kitchen! I hope you enjoy making and eating this delicious Jalebi. Happy cooking!
     </div>
+
+    <script>
+        const baseUrl = 'http://<ngrok_subdomain>.ngrok.io'; // Replace with your actual ngrok URL
+
+        document.getElementById('like-button').addEventListener('click', () => {
+            fetch(`${baseUrl}/like`, {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Post liked! Total likes: ${data.likes}`);
+            });
+        });
+
+        document.getElementById('submit-comment').addEventListener('click', () => {
+            const comment = document.getElementById('comment-text').value;
+            fetch(`${baseUrl}/comment`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ comment })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                document.getElementById('comment-text').value = ''; // Clear textarea
+            });
+        });
+    </script>
 </body>
 </html>
+
